@@ -63,6 +63,40 @@ void Unit::newTurn(){
 	guard_on = false;
 }
 
+int Unit::attack(Unit &target){
+	return target.beAttacked(atk);
+
+
+	
+}
+
+int Unit::beAttacked(int oppatk){
+	int dmg = oppatk-def;
+	if(guard_on == true) dmg = dmg/3;
+	if(dmg<0) dmg = 0;
+	hp = hp-dmg;
+	
+	return dmg;
+}
+
+int Unit::heal(){
+	int h = rand()%20+11;
+	if (hpmax-hp < h) {
+		hp = hpmax;
+		return hpmax-hp;
+	}
+	else {hp+=h ; return h;}
+	
+}
+
+void Unit::guard(){
+	guard_on = true;
+}
+
+bool Unit::isDead(){
+	if(hp <= 0) return true;
+	else return false;
+}
 //Write Function Member attack(), beAttacked(), heal(), guard() and isDead() here
 //
 //
@@ -124,4 +158,5 @@ void playerLose(){
 	cout << "*                                                     *\n";
 	cout << "*******************************************************\n";
 };
+
 
